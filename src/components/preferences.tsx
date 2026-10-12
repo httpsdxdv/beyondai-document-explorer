@@ -4,12 +4,12 @@ import { Moon, Sun } from "lucide-react";
 function subscribe(notify: () => void) {
     const media = matchMedia("(prefers-color-scheme: dark)");
     window.addEventListener("storage", notify);
-    window.addEventListener("document-theme-change", notify);
+    window.addEventListener("beyondai-theme-change", notify);
     media.addEventListener("change", notify);
-    return () => { window.removeEventListener("storage", notify); window.removeEventListener("document-theme-change", notify); media.removeEventListener("change", notify); };
+    return () => { window.removeEventListener("storage", notify); window.removeEventListener("beyondai-theme-change", notify); media.removeEventListener("change", notify); };
 }
 function snapshot() { try {
-    const value = localStorage.getItem("document-theme");
+    const value = localStorage.getItem("beyondai-theme");
     return value ? value === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
 }
 catch {
@@ -21,10 +21,11 @@ export function Preferences({ english }: {
     const dark = useSyncExternalStore(subscribe, snapshot, () => false);
     useEffect(() => { document.documentElement.dataset.theme = dark ? "dark" : "light"; }, [dark]);
     return <button className="icon-button" aria-label={english ? "Dark theme" : "Tema escuro"} aria-pressed={dark} onClick={() => { try {
-        localStorage.setItem("document-theme", dark ? "light" : "dark");
-        window.dispatchEvent(new Event("document-theme-change"));
+        localStorage.setItem("beyondai-theme", dark ? "light" : "dark");
+        window.dispatchEvent(new Event("beyondai-theme-change"));
     }
     catch {
         document.documentElement.dataset.theme = dark ? "light" : "dark";
     } }}>{dark ? <Sun size={20}/> : <Moon size={20}/>}</button>;
 }
+

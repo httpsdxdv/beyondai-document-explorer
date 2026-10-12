@@ -2,6 +2,10 @@
 
 Independent React / Next.js / TypeScript portfolio demonstration by Henrique Gonçalves. All six sample documents are fictional. No client material, uploads, authentication, AI calls, tracking or paid backend.
 
+## BeyondAI subproject and design system
+
+Document Explorer belongs to the BeyondAI website and branding project, with its own repository and deployment. The production website at https://beyondai.credipesca.com is the visual authority. The shared logo is identical; DM Sans body and Outfit headings use the same Next.js font configuration. Resolved editorial light/dark colors, 9px action radii, 18px panels, header logo sizes, 44px touch targets, visible focus and 160ms control / 180ms entry motion follow the website. Reduced motion removes animations. Font assets are self-hosted by Next.js; visitors do not request Google Fonts. Keep these resolved tokens synchronized when the parent design system changes; the explorer adds no animation library or marketing scripts.
+
 ## Run
 Node.js 24 or later. `npm install`, `npm run dev`, open `/pt` or `/en`.
 Checks: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`.
