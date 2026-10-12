@@ -1,0 +1,7 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {filterDocuments,queryString,documents} from '../src/lib/documents.ts';
+test('search matches title and summary, accents and case',()=>{assert.equal(filterDocuments({q:'ACESSIBILIDADE'},'pt')[0].id,'interface-accessibility');assert.equal(filterDocuments({q:'publicacao'},'pt')[0].id,'release-checklist');assert.equal(filterDocuments({q:'keyboard'},'en')[0].id,'interface-accessibility');});
+test('filters combine and empty results are valid',()=>{assert.equal(filterDocuments({category:'engineering',year:'2025'},'pt')[0].id,'rendering-notes');assert.equal(filterDocuments({q:'nothing-exists'},'en').length,0);assert.equal(filterDocuments({category:'invalid'},'pt').length,0);});
+test('date sorting is deterministic in both directions',()=>{assert.equal(filterDocuments({sort:'newest'},'en')[0].id,'interface-accessibility');assert.equal(filterDocuments({sort:'oldest'},'en')[0].id,'mobile-review');});
+test('query serialization preserves unicode and filter state',()=>{const f={q:'revisão & foco',category:'product',year:'2026',sort:'title'};assert.deepEqual(Object.fromEntries(new URLSearchParams(queryString(f))),f);});
+test('all fictional documents have unique IDs and PT/EN content',()=>{assert.equal(new Set(documents.map(d=>d.id)).size,documents.length);for(const d of documents)for(const l of ['pt','en']){assert.ok(d.title[l]&&d.summary[l]&&d.body[l].length);}});
