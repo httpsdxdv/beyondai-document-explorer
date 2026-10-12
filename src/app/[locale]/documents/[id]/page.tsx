@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Header } from "@/components/header";
 import { categories, documents, queryString, type Locale, type Filters } from "@/lib/documents";
+export const dynamicParams = false;
+export function generateStaticParams() {
+    return documents.flatMap(document => ["pt", "en"].map(locale => ({ locale, id: document.id })));
+}
 export default async function Detail({ params, searchParams }: {
     params: Promise<{
         locale: Locale;
