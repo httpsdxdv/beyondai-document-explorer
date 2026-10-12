@@ -20,3 +20,5 @@ No analytics scripts, network document storage, cookies or personal data collect
 
 ## License
 MIT. Fictional demo content is included under the same license.
+
+After starting the production server, run `node scripts/smoke.mjs` (optional `DEMO_TEST_URL`) to verify HTTP routes, language, query preservation, 404 and empty states.
